@@ -4,13 +4,10 @@ import {buildSchema} from 'graphql';
 // and the input if i have one.
 const schema = buildSchema(`
     type Query {
-        """ Bring a client for his id, receives an id and returns a Client if it exist """
         getCliente(id: ID): Cliente
     }
 
-    """ Mutations for create new "clientes" """
     type Mutation {
-        # resolver name( input with data ): return values.
         crearCliente(input: ClienteInput): Cliente
     }
 
@@ -20,27 +17,10 @@ const schema = buildSchema(`
         apellido: String,
         empresa: String,
         email: String
-        tipo: TipoCliente!
-        pedidos: [Pedido]
-    }
-
-    type Pedido {
-        producto: String
-        precio: Int
-    }
-
-    enum TipoCliente{
-        BASICO
-        PREMIUM
     }
 
     type Email {
         email: String
-    }
-
-    input PedidoInput{
-        producto: String
-        precio: Int
     }
 
     input ClienteInput {
@@ -49,8 +29,6 @@ const schema = buildSchema(`
         apellido: String!,
         empresa: String!,
         email: String!
-        tipo: TipoCliente!
-        pedidos: [PedidoInput]
     }
 `);
 

@@ -1,0 +1,77 @@
+# Remember: When i make a change in the GraphQL schema i have to verify the resolvers 
+# and the input if i have one.
+type Query {
+    """ Bring a client for his id, receives an id and returns a Client if it exist """
+    getCliente(id: ID): Cliente
+}
+
+""" Mutations for create new "clientes" """
+type Mutation {
+    # resolver name( input with data ): return values.
+    crearCliente(input: ClienteInput!): Cliente
+    actualizarCliente(input: ClienteInput!) : Cliente
+}
+
+type Cliente {
+    id: ID
+    nombre: String
+    apellido: String
+    empresa: String
+    emails: [Email]
+    edad: Int
+    tipo: TipoCliente!
+    pedidos: [Pedido]
+}
+
+type Pedido {
+    producto: String
+    precio: Int
+}
+
+enum TipoCliente{
+    BASICO
+    PREMIUM
+}
+
+type Email {
+    email: String
+}
+
+input PedidoInput{
+    producto: String
+    precio: Int
+}
+
+input ClienteInput{
+    id: ID,
+    nombre: String
+    apellido: String
+    empresa: String
+    emails: [Email]
+    edad : Int
+    tipo: TipoCliente
+    pedidos: [PedidoInput]
+}
+
+# mutation{
+#   crearCliente(input:{
+#     nombre:"Armando",
+#     apellido: "Valderrama",
+#     empresa: "UNAM",
+#     email: "ArmandoVn@outlook.com"
+#     tipo: PREMIUM
+#     pedidos:[
+#       {producto: "Cartulina"
+#       precio: 123}
+#       {producto: "Papel"
+#       precio:12}
+#     ]
+#   }){
+#     id
+#     tipo
+#     pedidos{
+#       precio
+#       producto
+#     }
+#   }
+# }
